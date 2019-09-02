@@ -5,8 +5,8 @@ cd outsystems-styles
 echo "Checking out branch $develop"
 git checkout $1
 echo "Pulling latest sass files from origin/$develop"
+git fetch origin $1
 git reset --hard origin/$1
-git pull origin $1
 
 echo "Removing old styles in /styles"
 rm -rf ..styles/

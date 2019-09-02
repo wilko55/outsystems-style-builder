@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 app.post('/refresh', (req, res) => {
   // set up webhook for correct env remote
   const refParts = req.body.ref.split('/');
-  let targetBranch = refParts[refParts.length];
+  let targetBranch = refParts[refParts.length - 1];
   if (!targetBranch) {
     return;
   }
