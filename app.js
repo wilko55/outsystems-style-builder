@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const shell = require('shelljs');
 
 const port = 3001;
-const defaultTargetBranch = 'develop';
+const env = 'develop'; // to be env var on startup
 const outsystemsStylesRepo = 'https://github.com/wilko55/outsystems-styles';
 
 const path = 'styles';
@@ -20,10 +20,12 @@ app.post('/refresh', (req, res) => {
   const refParts = req.body.ref.split('/');
   let targetBranch = refParts[refParts.length];
   if (!targetBranch) {
-    targetBranch = defaultTargetBranch;
+    return;
   }
 
-  shell.exec(`./build-styles.sh ${targetBranch}`);
+  if (env === targetBranch) {
+    shell.exec(`./build-styles.sh ${targetBranch}`);
+  }
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
